@@ -1,0 +1,37 @@
+sudo: false
+language: python
+python:
+  - '3.3'
+  - '3.4'
+  - '3.5'
+install: make travis-install
+script: make travis-script
+after_success:
+  - coveralls
+  - codeclimate-test-reporter
+deploy:
+  - provider: pypi
+    server: https://testpypi.python.org/pypi
+    user: "Andrew.Hawker"
+    password:
+      secure: InX0tyo6tkcdeoly/QPcqqyQaBVR5VhV9hhXitM/kv80N33A6S8qwtvKQwlA7XCwAJKs1dN+4k2BZviRuOX+Dh0+8x2zW/HKD6w5kAxsJ78cLsym7DjcRDIKVNIai1EsjdYmr9wYvptAK6kbJGmEtCcnxQ2uUmUaq6PiMAgGZNBl400gyTjy9zG/wvvZ5g40BUwn4qJEqA3XTv7UlHBixP5kgF/RlJXCYarkfmcpGSNh/YqqS0smR41A8Xe1FBnvAWF1Q58pxuF8KndVUyLsAyufGd3EEzti9q/T3JZsMo5HCGHXL3bUVxkkr70t2HR1ZL/x5PhsNpU8iCNPHKEhh674Ko91zJSTpkQ/IWmzHoZjA3YRWyA9kVAH8XNMFvtT3hzpXmguv7zH7Z+WQOH7pavlGpxmOdOl7j3PD1qCViAHpYVWwMa4IY91dgnhmTe86ChK4LE0Bt2/DoWd3ZCBIGOKm3HHFzJ6EVsinO+xOLpXb9lql15Yr0gD8YEkJ1nP0HPrvEYKfvFa+GTIBqU6Q+ZxqDHP8flXsYoIZBuiuKDD9iMv6MKTce6vx9nhCc9/QmG9aPa1n2ywj+MJ+ulTlVBoXI810a2dM+ze3rmLcPWrYAAR4nHOEZPFJcjDmtzzV4q9MWdB2WL6ys1ve6jID6hRjD7ECrtcMEiA6sXjI0w=
+    distributions: "sdist bdist_wheel"
+    skip_cleanup: true
+    on:
+      branch: master
+      tags: false
+      condition: $TRAVIS_PYTHON_VERSION = "3.4"
+  - provider: pypi
+    server: https://pypi.python.org/pypi
+    user: "Andrew.Hawker"
+    password:
+      secure: T7Pu5/mX7RyWQcuHnsFz0+QE6zvQE4ZBN9EyFOnvbFj1OE79zobM4IjVVPh6f7qhoqoKR/fLW5UNl5KucPGZnCo9/tLYM+7maORC3un5l+9H5RiqECC+JrSulhdx+sXVy9ui67fjhPMbOK/xezZuKq8okLkjERur4IJn2ImbvvVeNSczVj4f3bFAz8vch+DiUde8ml/9iMkUla1BqvUYhHz+ui4dB8piZVulhDO5mKu6lVYYxVQQcK1Dr9r6pxFlt04XY5y2QkM8FrsOQDjyThzjprmLCkzmAW3zvPK2+N+hxvjH2D0e6HRau6HWvjYO/fylnW+322zoxnn1EODJkMRAbcHidtUWPQydNwFotxZqOwSXkct0ChqQJI7Zh+aTuewBtjR5sACORiRxQAQn/8QqwpRC2ydOHstcJRCWSsTEdvFHXVShP0VZnOUr6Z+4ig39f6Io5A3UZvf+IyjxiYbIDDjkeqn4R0Hy8AzSG0IzUXevLvBeWyscSEU5tIZQJwnLAwyln5jxaK+zeAxcB7e2Zs5KQJUMcJugi69fxEBFRYp5IB9Rjq67EHdbv0FRvzuLWdnrXo/0Z7p3DryEw3QTM/eo1Vi8WlA6lHli5SLBL4TY6+AZN9nIlVXTTh0omH0P0nEZJ9vPaMvQSjDho+McrKVCRdjkLdeZ5B0IPxU=
+    distributions: "sdist bdist_wheel"
+    skip_cleanup: true
+    on:
+      branch: master
+      tags: true
+      condition: $TRAVIS_PYTHON_VERSION = "3.5"
+notifications:
+  slack:
+    secure: er7+/5OYO3Gwxft7YDn/3m2+VDeC4dmUKR7PcB2KjfQ7DeFMxvmnX+4aHsgD2FkEHYjW9QnBtZbaMptuLPrfeGTk5d/yxWu9NTONiH9AGMSh5NR2fXUKGuHma9j25RG399ZdAlvC46r2JG7flrAaz38SroCa/DxVmG8Tu6vw9eEND50vm9XfGtvDIOC4Nq5JVS+FBbFI4Wkln3fcktnbD/tDt5MHI9q9AuD4QjvtXaQsMBUSptZgtsqlOE/cPnfiv/0rsbcLkm4b+DAQG4qqhL16pzJTbxmXVnxHY+tWu8DUzZer4ufyxPBP43gutWmamaYzUcjSkZ5ZCmX3CGHEDm9oo+1mA9cMFHKeaOnEjCieZvkklR6ycLjgg5c6cdDmNEG4PGELb5XYJmuwcIg2XqpA7H1Ox3Tn/f4hIyHVL8+5uRKHahvDdom5sXjQNcQmd/79YkSZB/s2efhIVDkFlqemgGsDzW4IDOiKRxT6H6bs/q7JFRGsh/nk4lc+iL/w5OjF499/Nx99SAphwdGUH8FL2I0dX7VZZ2awqrkU7hN6wyPH5gg+2/u3fC4/PTI5S1J4xhwz4Q0xwZxaJ9IiGyHF3c50lk+qXfFEXbB1xlu9WKeIhcBZpJvcv5hriC+tnM2kDi0s8+fOe+AL0s6K0dyqg65AVYuUpbCpKgyo3dk=
