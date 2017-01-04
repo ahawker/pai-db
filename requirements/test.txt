@@ -1,0 +1,8 @@
+# pai-db/requirements/test.txt
+# 
+# Requirements for executing the pai_db test suite.
+
+pytest
+pytest-cov
+pytest-mock
+pytest-pep8

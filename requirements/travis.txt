@@ -1,0 +1,7 @@
+# pai-db/requirements/travis.txt
+#
+# Requirements for executing the pai_db test suite on Travis CI.
+
+-r tox.txt
+
+tox-travis
