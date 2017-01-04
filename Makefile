@@ -16,7 +16,7 @@ coveralls-install:
 	pip install -q -r requirements/coveralls.txt
 
 codeclimate-install:
-        pip install -q -r requirements/codeclimate.txt
+	pip install -q -r requirements/codeclimate.txt
 
 travis-install: coveralls-install codeclimate-install
 	pip install -q -r requirements/travis.txt
